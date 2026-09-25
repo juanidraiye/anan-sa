@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anan S.A. — Curtiembre en Lanús, Argentina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EDE6D8;
+    --surface: #E2D8C4;
+    --surface-2: #D8CBAF;
+    --ink: #241A14;
+    --ink-soft: #4F4034;
+    --leather: #8C5A34;
+    --leather-dark: #6B4223;
+    --rust: #A6461F;
+    --line: rgba(36,26,20,0.18);
+    --line-strong: rgba(36,26,20,0.35);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1B1410;
+      --surface: #241A14;
+      --surface-2: #2E2119;
+      --ink: #EDE6D8;
+      --ink-soft: #C9BBA6;
+      --leather: #CB9A66;
+      --leather-dark: #8C5A34;
+      --rust: #E0763F;
+      --line: rgba(237,230,216,0.16);
+      --line-strong: rgba(237,230,216,0.32);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1B1410;
+    --surface: #241A14;
+    --surface-2: #2E2119;
+    --ink: #EDE6D8;
+    --ink-soft: #C9BBA6;
+    --leather: #CB9A66;
+    --leather-dark: #8C5A34;
+    --rust: #E0763F;
+    --line: rgba(237,230,216,0.16);
+    --line-strong: rgba(237,230,216,0.32);
+  }
+
+  * { box-sizing: border-box; }
+  html {
+    scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px));
+  }
+  html, body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink);
+  }
+  p { margin: 0; line-height: 1.65; color: var(--ink-soft); max-width: 38em; }
+  a { color: inherit; }
+  button { font-family: inherit; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    top: env(safe-area-inset-top, 0px);
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .wordmark .name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .wordmark .tag {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    border-left: 1px solid var(--line-strong);
+    padding-left: 10px;
+    display: none;
+  }
+  @media (min-width: 640px) { .wordmark .tag { display: inline; } }
+
+  nav { display: flex; gap: 4px; }
+  nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    padding: 8px 14px;
+    border-radius: 2px;
+    transition: color 0.15s ease;
+  }
+  nav button:hover { color: var(--ink); }
+  nav button.active {
+    color: var(--ink);
+    box-shadow: inset 0 -2px 0 var(--rust);
+  }
+  nav button:focus-visible, a:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--rust);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Sections / page switching ---------- */
+  main { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  section.page { display: none; }
+  section.page.active { display: block; animation: rise 0.5s ease both; }
+  @media (prefers-reduced-motion: reduce) {
+    section.page.active { animation: none; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .eyebrow {
+    font-size: 0.82rem;
+    color: var(--leather);
+    margin: 0 0 10px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    padding: 64px 0 56px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding: 40px 0 40px; } }
+  .hero h1 {
+    font-size: clamp(2.3rem, 5vw, 3.6rem);
+    line-height: 1.05;
+  }
+  .hero p.lede {
+    margin-top: 22px;
+    font-size: 1.08rem;
+  }
+  .hero-actions { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 22px;
+    border-radius: 2px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary { background: var(--leather-dark); color: #EDE6D8; }
+  .btn-primary:hover { background: var(--rust); }
+  .btn-ghost { background: transparent; border-color: var(--line-strong); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  .hide-panel {
+    aspect-ratio: 4/5;
+    border-radius: 3px;
+    background:
+      radial-gradient(120% 90% at 20% 15%, rgba(203,154,102,0.35), transparent 55%),
+      radial-gradient(90% 70% at 85% 80%, rgba(166,70,31,0.28), transparent 60%),
+      repeating-linear-gradient(115deg, rgba(36,26,20,0.05) 0 2px, transparent 2px 7px),
+      linear-gradient(160deg, var(--leather) 0%, var(--leather-dark) 55%, #3A2415 100%);
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.35);
+    display: flex;
+    align-items: flex-end;
+    padding: 26px;
+  }
+  .hide-panel .cap {
+    font-size: 0.82rem;
+    color: rgba(237,230,216,0.92);
+    background: rgba(27,20,16,0.35);
+    padding: 8px 12px;
+    border-radius: 2px;
+    backdrop-filter: blur(2px);
+  }
+
+  /* ---------- Stat strip ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 8px 0 64px;
+  }
+  @media (max-width: 720px) { .stats { grid-template-columns: 1fr; } }
+  .stat {
+    padding: 26px 22px;
+    border-right: 1px solid var(--line);
+  }
+  .stat:last-child { border-right: none; }
+  @media (max-width: 720px) {
+    .stat { border-right: none; border-bottom: 1px solid var(--line); }
+    .stat:last-child { border-bottom: none; }
+  }
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.1rem;
+    color: var(--leather);
+    display: block;
+  }
+  .stat .label { font-size: 0.9rem; color: var(--ink-soft); margin-top: 4px; }
+
+  /* ---------- Generic section header ---------- */
+  .section-head { padding: 56px 0 8px; }
+  .section-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); max-width: 26em; }
+  .section-head p { margin-top: 16px; font-size: 1.02rem; }
+
+  /* ---------- Nosotros: split + timeline ---------- */
+  .nosotros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    padding: 36px 0 72px;
+  }
+  @media (max-width: 860px) { .nosotros-grid { grid-template-columns: 1fr; gap: 36px; } }
+  .nosotros-grid .col p + p { margin-top: 16px; }
+
+  .timeline { border-left: 2px solid var(--line-strong); padding-left: 26px; display: flex; flex-direction: column; gap: 28px; }
+  .tl-item { position: relative; }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -32px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--rust);
+  }
+  .tl-year { font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--leather); display: block; margin-bottom: 4px; }
+  .tl-item p { font-size: 0.96rem; }
+
+  .badge-row { display: flex; gap: 14px; align-items: center; margin-top: 26px; flex-wrap: wrap; }
+  .badge {
+    border: 1px solid var(--line-strong);
+    padding: 10px 16px;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge strong { color: var(--ink); font-weight: 600; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rust); flex: none; }
+
+  /* ---------- Productos: process ---------- */
+  .process { display: flex; flex-direction: column; padding: 24px 0 8px; }
+  .stage {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 22px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+  }
+  .stage:first-child { border-top: none; }
+  .stage .n {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    color: var(--leather);
+  }
+  .stage h3 { font-size: 1.2rem; margin-bottom: 8px; }
+  .stage .apps { margin-top: 10px; font-size: 0.88rem; color: var(--ink-soft); }
+  .stage .apps b { color: var(--ink); font-weight: 600; }
+
+  .mercados { padding: 40px 0 72px; }
+  .mercados .list { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .mercados .chip {
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Contacto ---------- */
+  .contacto-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+    padding: 36px 0 80px;
+  }
+  @media (max-width: 860px) { .contacto-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .info-block { margin-bottom: 28px; }
+  .info-block h3 { font-size: 1rem; margin-bottom: 6px; color: var(--leather); font-family: 'Public Sans', sans-serif; font-weight: 600; }
+  .info-block p { font-size: 0.98rem; }
+
+  form { display: flex; flex-direction: column; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 0.85rem; color: var(--ink-soft); }
+  .field input, .field textarea, .field select {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    color: var(--ink);
+    font-family: inherit;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: 2px solid var(--rust);
+    outline-offset: 1px;
+  }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+  .form-note { font-size: 0.82rem; color: var(--ink-soft); margin-top: 4px; }
+  #confirm {
+    display: none;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    padding: 16px 18px;
+    border-radius: 2px;
+    font-size: 0.92rem;
+    margin-top: 8px;
+  }
+  #confirm.show { display: block; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 40px;
+    padding: 28px 28px calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+  .footer-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="wordmark" onclick="goPage('inicio');return false;">
+      <span class="name">ANAN</span>
+      <span class="tag">Curtiembre — Lanús, Argentina</span>
+    </a>
+    <nav>
+      <button data-page="inicio" class="active" onclick="goPage('inicio')">Inicio</button>
+      <button data-page="nosotros" onclick="goPage('nosotros')">Nosotros</button>
+      <button data-page="productos" onclick="goPage('productos')">Productos</button>
+      <button data-page="contacto" onclick="goPage('contacto')">Contacto</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= INICIO ================= -->
+  <section class="page active" id="page-inicio">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Curtido y terminación de cueros</p>
+        <h1>Cuero curtido con el oficio de una planta que lleva más de sesenta años trabajándolo.</h1>
+        <p class="lede">Anan S.A. transforma cuero vacuno en insumo terminado para la industria del calzado, la marroquinería y la tapicería, desde una planta en Lanús certificada por el Leather Working Group.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" onclick="goPage('productos')">Ver los productos</a>
+          <a class="btn btn-ghost" onclick="goPage('contacto')">Solicitar una cotización</a>
+        </div>
+      </div>
+      <div class="hide-panel">
+        <span class="cap">Wet blue · Semiterminado · Terminado</span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="num">60+</span>
+        <span class="label">años de trayectoria industrial en la misma planta de Lanús</span>
+      </div>
+      <div class="stat">
+        <span class="num">Gold</span>
+        <span class="label">calificación del Leather Working Group, vigente hasta 2027</span>
+      </div>
+      <div class="stat">
+        <span class="num">3</span>
+        <span class="label">mercados de exportación activos: México, Uruguay y Perú</span>
+      </div>
+    </div>
+
+    <div class="nosotros-grid" style="padding-top:0;">
+      <div class="col">
+        <p class="eyebrow">A qué nos dedicamos</p>
+        <h2 style="font-size:1.6rem; margin-bottom:14px;">Un insumo, no un producto de góndola</h2>
+        <p>No vendemos cuero a quien va a usarlo una sola vez. Vendemos a fábricas de calzado, marroquinería y tapicería que necesitan un proveedor con el que puedan planificar producción a mediano plazo: cuero con el mismo estándar en el próximo lote que en el anterior.</p>
+        <p>Eso se construye con proceso, no con promesas: curtimos y terminamos el cuero en nuestra propia planta, bajo un esquema de calidad que un organismo externo audita de forma periódica.</p>
+      </div>
+      <div class="col">
+        <p class="eyebrow">Por qué certificamos</p>
+        <h2 style="font-size:1.6rem; margin-bottom:14px;">Trazabilidad que tu cliente también te va a pedir</h2>
+        <p>Si vendés calzado o marroquinería a mercados que exigen sustentabilidad ambiental certificada, la trazabilidad no empieza en tu fábrica: empieza en el curtido. Trabajar con un proveedor certificado te permite responder esa pregunta antes de que te la hagan.</p>
+        <a class="btn btn-ghost" style="margin-top:8px;" onclick="goPage('nosotros')">Conocer nuestra certificación</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NOSOTROS ================= -->
+  <section class="page" id="page-nosotros">
+    <div class="section-head">
+      <p class="eyebrow">Nosotros</p>
+      <h2>La misma planta, distintas décadas.</h2>
+      <p>Anan S.A. opera desde Carlos Pellegrini 3958, Lanús, provincia de Buenos Aires — un predio que trabaja el cuero desde mucho antes de llevar este nombre.</p>
+    </div>
+
+    <div class="nosotros-grid">
+      <div class="col">
+        <p class="eyebrow">Historia</p>
+        <p>Antes de ser Anan S.A., en este mismo predio funcionaba Curtiembre Ángel Giordano S.A., una curtiembre familiar de la zona sur del conurbano bonaerense. En la década de 2000, el establecimiento fue reconvertido y renombrado bajo la firma actual, que mantiene contrato social desde 2008 y actividad de curtido y terminación de cueros registrada formalmente desde 2013.</p>
+        <p>Esa continuidad importa: el oficio de curtir no se aprende en un año, y la planta de Lanús acumula más de sesenta años resolviendo los mismos problemas técnicos que hoy nos permiten sostener un estándar de calidad constante lote a lote.</p>
+        <p>Hoy exportamos a compradores industriales en México, Uruguay y Perú, y abastecemos insumos de curtido provenientes de Italia, China y Alemania para sostener ese estándar en cada partida.</p>
+      </div>
+
+      <div class="col">
+        <p class="eyebrow">Certificación</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <span class="tl-year">Década de 2000</span>
+            <p>El predio de Lanús se reconvierte y pasa a operar bajo la firma Anan S.A., tras décadas como Curtiembre Ángel Giordano S.A.</p>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">2008</span>
+            <p>Contrato social de Anan S.A.</p>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">2013</span>
+            <p>Registro formal de la actividad de curtido y terminación de cueros.</p>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">2016</span>
+            <p>Primera certificación otorgada por el Leather Working Group (LWG), organismo que audita el desempeño ambiental de curtiembres a nivel internacional.</p>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">Hoy — vigente hasta 2027</span>
+            <p>Calificación <strong style="color:var(--ink)">Gold</strong>, la más alta del esquema del LWG, mantenida de forma continua desde 2016.</p>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge"><span class="dot"></span> Auditoría <strong>LWG</strong> periódica</span>
+          <span class="badge"><span class="dot"></span> Calificación <strong>Gold</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUCTOS ================= -->
+  <section class="page" id="page-productos">
+    <div class="section-head">
+      <p class="eyebrow">Productos</p>
+      <h2>Tres etapas de un mismo cuero.</h2>
+      <p>Podemos entregar el cuero en distintos puntos de su proceso de curtido, según lo que tu propia línea de producción necesite recibir.</p>
+    </div>
+
+    <div class="process">
+      <div class="stage">
+        <span class="n">01</span>
+        <div>
+          <h3>Wet blue</h3>
+          <p>Cuero curtido al cromo en su primera etapa estable, listo para ser transportado y terminado por el propio cliente según sus especificaciones internas.</p>
+          <p class="apps"><b>Pensado para:</b> fábricas con línea propia de terminación que necesitan controlar ellas mismas el acabado final.</p>
+        </div>
+      </div>
+      <div class="stage">
+        <span class="n">02</span>
+        <div>
+          <h3>Semiterminado</h3>
+          <p>Un punto intermedio de acabado, con la corrección de superficie ya realizada, para clientes que aplican su propio color o textura final en planta.</p>
+          <p class="apps"><b>Pensado para:</b> marroquinería y tapicería que trabajan con paletas de color propias por temporada.</p>
+        </div>
+      </div>
+      <div class="stage">
+        <span class="n">03</span>
+        <div>
+          <h3>Terminado</h3>
+          <p>Cuero con acabado final de superficie, color y tacto, listo para entrar directamente a la línea de corte y confección.</p>
+          <p class="apps"><b>Pensado para:</b> calzado, marroquinería y tapicería que buscan reducir pasos de proceso propio.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mercados">
+      <p class="eyebrow">Dónde llega hoy</p>
+      <h2 style="font-size:1.5rem;">Mercado local y de exportación</h2>
+      <p>Además de abastecer a la industria nacional del calzado y la marroquinería, exportamos de forma regular a los siguientes destinos:</p>
+      <div class="list">
+        <span class="chip">México</span>
+        <span class="chip">Uruguay</span>
+        <span class="chip">Perú</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACTO ================= -->
+  <section class="page" id="page-contacto">
+    <div class="section-head">
+      <p class="eyebrow">Contacto</p>
+      <h2>Contanos qué cuero necesitás.</h2>
+      <p>Respondemos consultas de empresas que buscan un proveedor de cuero curtido y terminado, tanto para pedidos puntuales como para acuerdos de suministro continuo.</p>
+    </div>
+
+    <div class="contacto-grid">
+      <div>
+        <div class="info-block">
+          <h3>Planta</h3>
+          <p>Carlos Pellegrini 3958<br>Lanús, Provincia de Buenos Aires, Argentina</p>
+        </div>
+        <div class="info-block">
+          <h3>Para pedidos industriales</h3>
+          <p>Completá el formulario contándonos el volumen y el tipo de cuero que buscás (wet blue, semiterminado o terminado). Te respondemos con disponibilidad y una cotización.</p>
+        </div>
+        <div class="info-block">
+          <h3>Certificación</h3>
+          <p>Proveedor certificado Gold por el Leather Working Group. Podemos compartir la documentación vigente ante requerimiento comercial.</p>
+        </div>
+      </div>
+
+      <div>
+        <form onsubmit="return sendForm(event)">
+          <div class="row2">
+            <div class="field">
+              <label for="f-nombre">Nombre y apellido</label>
+              <input id="f-nombre" type="text" required>
+            </div>
+            <div class="field">
+              <label for="f-empresa">Empresa</label>
+              <input id="f-empresa" type="text" required>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" type="email" required>
+            </div>
+            <div class="field">
+              <label for="f-producto">Tipo de cuero</label>
+              <select id="f-producto">
+                <option>Wet blue</option>
+                <option>Semiterminado</option>
+                <option>Terminado</option>
+                <option>No estoy seguro todavía</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg">Contanos tu necesidad</label>
+            <textarea id="f-msg" rows="4" required></textarea>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary">Enviar consulta</button>
+            <p class="form-note">Vamos a responderte al email que nos dejes, dentro de los próximos días hábiles.</p>
+          </div>
+          <div id="confirm">Recibimos tu consulta. Gracias por escribirnos — te vamos a contactar a la brevedad.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© Anan S.A. — Curtiembre, Lanús, Argentina.</span>
+    <span>Carlos Pellegrini 3958, Lanús, Buenos Aires.</span>
+  </div>
+</footer>
+
+<script>
+  function goPage(id) {
+    document.querySelectorAll('section.page').forEach(function(s) {
+      s.classList.toggle('active', s.id === 'page-' + id);
+    });
+    document.querySelectorAll('nav button').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.page === id);
+    });
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  }
+
+  function sendForm(e) {
+    e.preventDefault();
+    var box = document.getElementById('confirm');
+    box.classList.add('show');
+    e.target.querySelectorAll('input, textarea').forEach(function(el){ el.value=''; });
+    return false;
+  }
+
+  (function initFromHash() {
+    var id = (location.hash || '#inicio').replace('#', '');
+    var valid = ['inicio', 'nosotros', 'productos', 'contacto'];
+    if (valid.indexOf(id) === -1) id = 'inicio';
+    goPage(id);
+  })();
+</script>
+
+</body>
+</html>
